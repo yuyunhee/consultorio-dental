@@ -48,20 +48,39 @@ class PacienteController extends Controller
 }
 
 
-    public function edit(string $id)
-    {
-        return view('pacientes.edit');
-    }
+  public function edit(Paciente $paciente)
+{
+    return view('pacientes.edit', compact('paciente'));
+}
 
 
-    public function update(Request $request, string $id)
-    {
-        return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado con éxito.');
-    }
+   public function update(Request $request, Paciente $paciente)
+{
+    $datos = $request->validate([
+        'nombre' => 'required|string|max:100',
+        'apellido' => 'required|string|max:100',
+        'fecha_nacimiento' => 'nullable|date',
+        'telefono' => 'required|string|max:20',
+        'correo' => 'nullable|email|unique:pacientes,correo,' . $paciente->id,
+        'curp' => 'nullable|string|size:18|unique:pacientes,curp,' . $paciente->id,
+        'direccion' => 'nullable|string',
+        'alergias' => 'nullable|string',
+    ]);
+
+    $paciente->update($datos);
+
+    return redirect()
+        ->route('pacientes.index')
+        ->with('success', 'Paciente actualizado con éxito.');
+}
 
 
-    public function destroy(string $id)
-    {
-        return redirect()->route('pacientes.index')->with('success', 'Paciente eliminado con éxito.');
-    }
+  public function destroy(Paciente $paciente)
+{
+    $paciente->delete();
+
+    return redirect()
+        ->route('pacientes.index')
+        ->with('success', 'Paciente eliminado con éxito.');
+}
 }

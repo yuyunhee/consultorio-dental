@@ -5,9 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del paciente | Sonrisa Dental</title>
+        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
 </head>
 <body>
+ <header class="encabezado">
+        <a href="/" class="logo"><img src="{{ asset('img/cepillo.png') }}" alt="Logo Sonrisa Dental" style="width: 20px; height: 20px; vertical-align: middle;">Sonrisa<span>Dental</span></a>
+       <div class="contenedor-botones">
+    <a href="{{ route('pacientes.index') }}" class="boton">Volver al listado</a>
+     <a href="{{ url('/admin') }}" class="boton1">Administracion</a>
+</div>
+    </header>
     <main class="contenedor-pacientes">
         <h1>Detalles del paciente</h1>
 
